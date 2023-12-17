@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from statsmodels.tsa.arima.model import ARIMA
 
-# Load your dataset
+
 data = pd.read_csv('FordM.csv')
 
 # ARIMA Model
