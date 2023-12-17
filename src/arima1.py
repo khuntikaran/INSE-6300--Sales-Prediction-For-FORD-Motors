@@ -7,14 +7,13 @@ from statsmodels.tsa.arima.model import ARIMA
 
 data = pd.read_csv('FordM.csv')
 
-# ARIMA Model
 model = ARIMA(data['Sales'], order=(1, 1, 1))
 model_fit = model.fit()
 
-# Forecast
+
 data['Forecast'] = model_fit.predict(start=1, end=len(data), typ='levels')
 
-# Plotting the results
+
 plt.figure(figsize=(12, 6))
 plt.plot(data['Sales'], label='Actual Sales')
 plt.plot(data['Forecast'], color='red', label='Forecasted Sales')
@@ -24,7 +23,7 @@ plt.ylabel('Sales')
 plt.legend()
 plt.show()
 
-# Calculating Accuracy Metrics
+
 def mean_absolute_percentage_error(y_true, y_pred): 
     y_true, y_pred = np.array(y_true), np.array(y_pred)
     return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
@@ -34,10 +33,10 @@ accuracy_percentage = 100 - mape
 mse = mean_squared_error(data['Sales'][1:], data['Forecast'][1:])
 rmse = np.sqrt(mse)
 
-# Print the metrics
+
 print("MAPE (Accuracy Percentage): {:.2f}%".format(accuracy_percentage))
 print("Mean Squared Error: {:.2f}".format(mse))
 print("Root Mean Squared Error: {:.2f}".format(rmse))
 
-# Model Summary
+
 print(model_fit.summary())
