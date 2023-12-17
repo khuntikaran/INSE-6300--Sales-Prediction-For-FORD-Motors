@@ -6,11 +6,11 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.preprocessing import StandardScaler
 
-# Load the dataset
-file_path = 'FordM.csv'  # Replace with your file path
+
+file_path = 'FordM.csv'  
 monthly_data = pd.read_csv(file_path, index_col='Date', parse_dates=True)
 
-# Function to create lagged features
+
 def create_lagged_features(df, n_lags=12):
     df_lagged = df.copy()
     for i in range(1, n_lags + 1):
@@ -23,15 +23,14 @@ monthly_data_lagged['rolling_mean_3'] = monthly_data_lagged['Sales'].rolling(win
 monthly_data_lagged['rolling_std_3'] = monthly_data_lagged['Sales'].rolling(window=3).std()
 monthly_data_lagged.dropna(inplace=True)  # Dropping NaN values created by rolling windows
 
-# Splitting the data into features (X) and target (y)
 X = monthly_data_lagged.drop('Sales', axis=1)
 y = monthly_data_lagged['Sales']
 
-# Standardizing features
+
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# Splitting data into training and testing sets
+
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
 # Randomized Search for Hyperparameter tuning
@@ -73,7 +72,6 @@ accuracy_percentage_gb = 100 - mape_gb
 print("Root Mean Squared Error:", rmse_gb)
 print("Model Accuracy:", accuracy_percentage_gb, '%')
 
-# Plotting the results
 plt.figure(figsize=(12, 6))
 plt.plot(y_test.values, label='Actual Sales', color='blue')
 plt.plot(y_pred, label='Predicted Sales', color='red')
@@ -83,7 +81,7 @@ plt.ylabel('Sales')
 plt.legend()
 plt.show()
 
-# Plotting the scatter plot for Actual vs Predicted Sales
+
 plt.figure(figsize=(12, 6))
 plt.scatter(y_test, y_pred, color='blue')
 plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'k--', lw=2)
