@@ -7,8 +7,7 @@ from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.preprocessing import StandardScaler
 import matplotlib.dates as mdates
 
-# Load the dataset
-file_path = 'FordM.csv'  # Replace with your file path
+file_path = 'FordM.csv'  
 monthly_data = pd.read_csv(file_path, index_col='Date', parse_dates=True)
 data = pd.read_csv('FordM.csv')
 # Function to create lagged features
