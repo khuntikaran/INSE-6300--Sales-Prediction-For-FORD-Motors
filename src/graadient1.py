@@ -68,10 +68,6 @@ gb_model = GradientBoostingRegressor(n_estimators=100, random_state=42)
 gb_model.fit(X_train_selected, y_train)
 y_pred_gb = gb_model.predict(X_test_selected)
 
-# Evaluating the Gradient Boosting model
-
-# ... [Your existing code] ...
-
 # Define the MAPE function
 def mean_absolute_percentage_error(y_true, y_pred): 
     y_true, y_pred = np.array(y_true), np.array(y_pred)
@@ -88,12 +84,11 @@ print("Gradient Boosting - Mean Squared Error:", mse)
 print("Gradient Boosting - R-squared:", r2_gb)
 print("Gradient Boosting - Model Accuracy:", accuracy_percentage_gb, '%')
 
-# Plotting the results
 #data['Forecast'] = model.predict( end=len(data), typ='levels')
 
 dates = monthly_data_lagged.index
 
-# Splitting data into training and testing sets
+
 train_size = int(len(X_scaled) * 0.8)
 train_dates = dates[:train_size]
 test_dates = dates[train_size:]
@@ -110,7 +105,7 @@ plt.show()
 
 y_pred_train_gb = gb_model.predict(X_train_selected)
 
-# Combining training and testing predictions
+
 combined_predictions = np.concatenate((y_pred_train_gb, y_pred_gb), axis=0)
 
 # Combine train and test dates for plotting
